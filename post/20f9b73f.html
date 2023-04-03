@@ -1,0 +1,226 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>休闲小游戏RunningMan | DesignDoc</title><meta name="author" content="Stefan Song"><meta name="copyright" content="Stefan Song"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="游戏系统概述 游戏名：Running Man 核心玩法：非对称对抗 游戏定位：轻度休闲小游戏 游戏盈利方式：广告营收+内购  玩法机制说明游戏分为两种角色，玩家皆可扮演： 逃跑者机制设定一场游戏中有5名逃跑者。  选择初始点：开始时需要选择4个初始点对应角色的出生位置。 躲避追逐者：移动过程中，如果逃跑者进入追逐者的有效扇形识别区域，即被拘捕。 被拘捕：无法行动。 被阻挡：无法直接通过设置路障的道">
+<meta property="og:type" content="article">
+<meta property="og:title" content="休闲小游戏RunningMan">
+<meta property="og:url" content="http://stefansong.github.io/post/20f9b73f">
+<meta property="og:site_name" content="DesignDoc">
+<meta property="og:description" content="游戏系统概述 游戏名：Running Man 核心玩法：非对称对抗 游戏定位：轻度休闲小游戏 游戏盈利方式：广告营收+内购  玩法机制说明游戏分为两种角色，玩家皆可扮演： 逃跑者机制设定一场游戏中有5名逃跑者。  选择初始点：开始时需要选择4个初始点对应角色的出生位置。 躲避追逐者：移动过程中，如果逃跑者进入追逐者的有效扇形识别区域，即被拘捕。 被拘捕：无法行动。 被阻挡：无法直接通过设置路障的道">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://stefansong.github.io/img/cover.png">
+<meta property="article:published_time" content="2023-04-03T05:33:23.000Z">
+<meta property="article:modified_time" content="2023-04-03T06:16:22.015Z">
+<meta property="article:author" content="Stefan Song">
+<meta property="article:tag" content="休闲小游戏设计">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://stefansong.github.io/img/cover.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://stefansong.github.io/post/20f9b73f"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '休闲小游戏RunningMan',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-04-03 14:16:22'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">3</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">3</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于作者</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url('/img/cover.png')"><nav id="nav"><span id="blog-info"><a href="/" title="DesignDoc"><img class="site-icon" src="/img/favicon.png"/><span class="site-name">DesignDoc</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于作者</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">休闲小游戏RunningMan</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-04-03T05:33:23.000Z" title="发表于 2023-04-03 13:33:23">2023-04-03</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-04-03T06:16:22.015Z" title="更新于 2023-04-03 14:16:22">2023-04-03</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E4%BC%91%E9%97%B2%E6%B8%B8%E6%88%8F/">休闲游戏</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="休闲小游戏RunningMan"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="游戏系统概述"><a href="#游戏系统概述" class="headerlink" title="游戏系统概述"></a>游戏系统概述</h2><ul>
+<li>游戏名：Running Man</li>
+<li>核心玩法：非对称对抗</li>
+<li>游戏定位：轻度休闲小游戏</li>
+<li>游戏盈利方式：广告营收+内购</li>
+</ul>
+<h2 id="玩法机制说明"><a href="#玩法机制说明" class="headerlink" title="玩法机制说明"></a>玩法机制说明</h2><p>游戏分为两种角色，玩家皆可扮演：</p>
+<h3 id="逃跑者机制"><a href="#逃跑者机制" class="headerlink" title="逃跑者机制"></a>逃跑者机制</h3><p>设定一场游戏中有5名逃跑者。</p>
+<ul>
+<li>选择初始点：开始时需要选择4个初始点对应角色的出生位置。</li>
+<li>躲避追逐者：移动过程中，如果逃跑者进入追逐者的有效扇形识别区域，即被拘捕。</li>
+<li>被拘捕：无法行动。</li>
+<li>被阻挡：无法直接通过设置路障的道路。</li>
+<li>破坏路障：接近路障，使用破坏路障技能，进入一段时间的技能读条，读条结束后，路障消失。读条过程中移动则中断读条。</li>
+<li>营救被拘捕的队友：接近已被拘捕的玩家，进入一段时间的技能读条，读条结束后，队友可自由行动。读条过程中移动则中断读条。</li>
+<li>收集地图碎片：触碰散落在地图中的地图碎片，即可解锁1个地图节点，所有玩家共享进度。</li>
+<li>收集钱袋：触碰散落在地图中的钱袋，会在最终结算时会额外获得货币奖励。</li>
+<li>逃亡：集齐地图碎片后，地图随机位置显示出口，触碰出口则成功逃离。</li>
+</ul>
+<h3 id="追逐者机制"><a href="#追逐者机制" class="headerlink" title="追逐者机制"></a>追逐者机制</h3><p>设定一场游戏中有1名追逐者，追逐者的移动速度大于逃亡者的移动速度。</p>
+<ul>
+<li>拘捕：自身面向会显示一个扇形识别区域，如果逃跑者进入该区域，则该逃跑者立即被拘捕。</li>
+<li>设置路障：点击设置路障技能可在当前位置设置一个路障，同时技能进入CD，暂时无法使用。追逐者移动不受路障限制，可自由通过。</li>
+</ul>
+<h3 id="游戏结算判定"><a href="#游戏结算判定" class="headerlink" title="游戏结算判定"></a>游戏结算判定</h3><ul>
+<li>逃跑者：游戏时间结束前，找到最终的逃离点成功逃离则判定胜利；未成功逃离则失败。</li>
+<li>追逐者：游戏时间结束前，拘捕所有逃跑者或结束时仍存在未逃离的逃跑者则判定胜利；未拘捕到任何一个逃跑者则失败。</li>
+</ul>
+<h3 id="游戏匹配机制"><a href="#游戏匹配机制" class="headerlink" title="游戏匹配机制"></a>游戏匹配机制</h3><p>玩家可以选择身份（逃跑者&#x2F;追逐者）进行匹配，系统优先匹配在线玩家；当匹配持续1min仍未找到玩家时，加入机器人玩家。</p>
+<h3 id="机器人机制"><a href="#机器人机制" class="headerlink" title="机器人机制"></a>机器人机制</h3><p>为保证游戏过程中每一名玩家的游戏体验，当玩家中途退出当前游戏时，且游戏尚未结束，系统会由机器人接管玩家角色并进行游戏操作。<br>被机器人接管的玩家角色在游戏结束后不会结算，且实际角色不受本局游戏影响。<br>这里暂不阐述机器人的AI机制。</p>
+<h2 id="游戏UI原型设计"><a href="#游戏UI原型设计" class="headerlink" title="游戏UI原型设计"></a>游戏UI原型设计</h2><img src="/post/20f9b73f/RunningMan1.png" class="" title="RunningMan原型图">
+<img src="/post/20f9b73f/RunningMan2.png" class="" title="RunningMan原型图">
+<img src="/post/20f9b73f/RunningMan3.png" class="" title="RunningMan原型图">
+<img src="/post/20f9b73f/RunningMan4.png" class="" title="RunningMan原型图">
+<img src="/post/20f9b73f/RunningMan5.png" class="" title="RunningMan原型图">
+<img src="/post/20f9b73f/RunningMan6.png" class="" title="RunningMan原型图">
+<img src="/post/20f9b73f/RunningMan7.png" class="" title="RunningMan原型图">
+<img src="/post/20f9b73f/RunningMan8.png" class="" title="RunningMan原型图">
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://StefanSong.github.io">Stefan Song</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://stefansong.github.io/post/20f9b73f">http://stefansong.github.io/post/20f9b73f</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://StefanSong.github.io" target="_blank">DesignDoc</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E4%BC%91%E9%97%B2%E5%B0%8F%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1/">休闲小游戏设计</a></div><div class="post_share"><div class="social-share" data-image="/img/cover.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/post/803ca07a" title="UI原型设计原理"><img class="cover" src="/img/cover.png" onerror="onerror=null;src='/img/404.png'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">UI原型设计原理</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Stefan Song</div><div class="author-info__description">一名普通的游戏农民工</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">3</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">3</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div><div class="card-info-social-icons is-center"><a class="social-icon" href="mailto:stefan.song@outlook.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">博主是一名游戏策划，欢迎就游戏设计相关问题进行讨论</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B8%B8%E6%88%8F%E7%B3%BB%E7%BB%9F%E6%A6%82%E8%BF%B0"><span class="toc-number">1.</span> <span class="toc-text">游戏系统概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%A9%E6%B3%95%E6%9C%BA%E5%88%B6%E8%AF%B4%E6%98%8E"><span class="toc-number">2.</span> <span class="toc-text">玩法机制说明</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%83%E8%B7%91%E8%80%85%E6%9C%BA%E5%88%B6"><span class="toc-number">2.1.</span> <span class="toc-text">逃跑者机制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%BD%E9%80%90%E8%80%85%E6%9C%BA%E5%88%B6"><span class="toc-number">2.2.</span> <span class="toc-text">追逐者机制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B8%B8%E6%88%8F%E7%BB%93%E7%AE%97%E5%88%A4%E5%AE%9A"><span class="toc-number">2.3.</span> <span class="toc-text">游戏结算判定</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B8%B8%E6%88%8F%E5%8C%B9%E9%85%8D%E6%9C%BA%E5%88%B6"><span class="toc-number">2.4.</span> <span class="toc-text">游戏匹配机制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%9C%BA%E5%88%B6"><span class="toc-number">2.5.</span> <span class="toc-text">机器人机制</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B8%B8%E6%88%8FUI%E5%8E%9F%E5%9E%8B%E8%AE%BE%E8%AE%A1"><span class="toc-number">3.</span> <span class="toc-text">游戏UI原型设计</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/post/20f9b73f" title="休闲小游戏RunningMan"><img src="/img/cover.png" onerror="this.onerror=null;this.src='/img/404.png'" alt="休闲小游戏RunningMan"/></a><div class="content"><a class="title" href="/post/20f9b73f" title="休闲小游戏RunningMan">休闲小游戏RunningMan</a><time datetime="2023-04-03T05:33:23.000Z" title="发表于 2023-04-03 13:33:23">2023-04-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/803ca07a" title="UI原型设计原理"><img src="/img/cover.png" onerror="this.onerror=null;this.src='/img/404.png'" alt="UI原型设计原理"/></a><div class="content"><a class="title" href="/post/803ca07a" title="UI原型设计原理">UI原型设计原理</a><time datetime="2023-04-02T14:48:10.000Z" title="发表于 2023-04-02 22:48:10">2023-04-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/ed2e9abb" title="敏捷开发"><img src="/img/cover.png" onerror="this.onerror=null;this.src='/img/404.png'" alt="敏捷开发"/></a><div class="content"><a class="title" href="/post/ed2e9abb" title="敏捷开发">敏捷开发</a><time datetime="2023-04-02T13:03:00.000Z" title="发表于 2023-04-02 21:03:00">2023-04-02</time></div></div></div></div></div></div></main><footer id="footer" style="background: linear-gradient(20deg, #0062be, #925696, #cc426e, #fb0347)"><div id="footer-wrap"><div class="copyright">&copy;2023 By Stefan Song</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><div class="js-pjax"><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+      Array.from($mermaidWrap).forEach((item, index) => {
+        const mermaidSrc = item.firstElementChild
+        const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+        const mermaidID = 'mermaid-' + index
+        const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+        mermaid.mermaidAPI.render(mermaidID, mermaidDefinition, (svgCode) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svgCode)
+        })
+      })
+    }
+
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+    }
+
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
